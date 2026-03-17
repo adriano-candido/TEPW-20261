@@ -5,6 +5,8 @@ import br.edu.christus.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -20,6 +22,14 @@ public class UserService {
         var userSaved = repository.save(user);
 
         return userSaved;
+    }
+
+    public List<User> findAll(){
+        return repository.findAll();
+    }
+
+    public User findById(Long id){
+        
     }
 
 }
