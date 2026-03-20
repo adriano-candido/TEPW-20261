@@ -29,7 +29,17 @@ public class UserService {
     }
 
     public User findById(Long id){
-        
+        var user = repository.findById(id);
+        if(user.isEmpty()){
+            System.out.println("Usuário com o id informado não existe");
+            return null;
+        }
+
+        return user.get();
+    }
+
+    public void delete(Long id){
+        repository.deleteById(id);
     }
 
 }
