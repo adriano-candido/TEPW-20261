@@ -1,6 +1,6 @@
 package br.edu.christus.backend.service;
 
-import br.edu.christus.backend.domain.User;
+import br.edu.christus.backend.domain.model.User;
 import br.edu.christus.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

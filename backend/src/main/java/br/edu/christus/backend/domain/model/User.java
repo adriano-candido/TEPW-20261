@@ -1,4 +1,4 @@
-package br.edu.christus.backend.domain;
+package br.edu.christus.backend.domain.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
