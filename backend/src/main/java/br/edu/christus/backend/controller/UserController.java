@@ -1,5 +1,6 @@
 package br.edu.christus.backend.controller;
 
+import br.edu.christus.backend.domain.dto.UserDTO;
 import br.edu.christus.backend.domain.model.User;
 import br.edu.christus.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,12 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> findAll(){
+    public List<UserDTO> findAll(){
         return service.findAll();
     }
 
     @GetMapping("/{id}")
-    public User findById(@PathVariable(name = "id") Long id){
+    public UserDTO findById(@PathVariable(name = "id") Long id){
         return service.findById(id);
     }
 

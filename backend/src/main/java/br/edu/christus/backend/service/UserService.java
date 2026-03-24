@@ -1,7 +1,9 @@
 package br.edu.christus.backend.service;
 
+import br.edu.christus.backend.domain.dto.UserDTO;
 import br.edu.christus.backend.domain.model.User;
 import br.edu.christus.backend.repository.UserRepository;
+import br.edu.christus.backend.utils.MapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,18 +26,21 @@ public class UserService {
         return userSaved;
     }
 
-    public List<User> findAll(){
-        return repository.findAll();
+    public List<UserDTO> findAll(){
+        var list = repository.findAll();
+        var listDTO = MapperUtil.parseListObjects(list, UserDTO.class);
+
+        return listDTO;
     }
 
-    public User findById(Long id){
+    public UserDTO findById(Long id){
         var user = repository.findById(id);
         if(user.isEmpty()){
             System.out.println("Usuário com o id informado não existe");
             return null;
         }
-
-        return user.get();
+        var dto = MapperUtil.parseObject(user.get(), UserDTO.class);
+        return dto;
     }
 
     public void delete(Long id){
