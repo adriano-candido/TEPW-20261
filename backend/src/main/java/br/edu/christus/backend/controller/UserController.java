@@ -1,6 +1,7 @@
 package br.edu.christus.backend.controller;
 
 import br.edu.christus.backend.domain.dto.UserDTO;
+import br.edu.christus.backend.domain.dto.UserLowDTO;
 import br.edu.christus.backend.domain.model.User;
 import br.edu.christus.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,12 @@ public class UserController {
     private UserService service;
 
     @PostMapping
-    public User create(@RequestBody User user){
+    public UserLowDTO create(@RequestBody UserDTO user){
         return service.save(user);
     }
 
     @PutMapping
-    public User update(@RequestBody User user){
+    public UserLowDTO update(@RequestBody UserDTO user){
         return service.save(user);
     }
 

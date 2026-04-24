@@ -10,4 +10,8 @@ public interface UserRepository extends
 
     boolean existsByEmailAndIdNot(String email, Long id);
 
+    boolean existsByLogin(String email);
+
+    boolean existsByLoginAndIdNot(String email, Long id);
+
 }

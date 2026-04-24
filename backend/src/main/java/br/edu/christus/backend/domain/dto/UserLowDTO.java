@@ -8,12 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class UserLowDTO {
 
-    @NotBlank
+    private Long id;
     private String name;
-    private String email;
-    private String login;
-    private String password;
 
 }

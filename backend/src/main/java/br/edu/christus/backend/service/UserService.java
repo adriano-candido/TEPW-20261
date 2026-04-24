@@ -1,6 +1,7 @@
 package br.edu.christus.backend.service;
 
 import br.edu.christus.backend.domain.dto.UserDTO;
+import br.edu.christus.backend.domain.dto.UserLowDTO;
 import br.edu.christus.backend.domain.model.User;
 import br.edu.christus.backend.repository.UserRepository;
 import br.edu.christus.backend.utils.MapperUtil;
@@ -17,29 +18,36 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
-    public User save(User user){
+    public UserLowDTO save(UserDTO user){
         if(user.getName().length() > 150){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     "Não é permitido nomes com mais de 150 caracteres");
         }
 
         boolean emailExists;
+        boolean loginExists;
 
         if(user.getId() == null){
             emailExists = repository.existsByEmail(user.getEmail());
+            loginExists = repository.existsByLogin(user.getLogin());
         }else{
             emailExists = repository.existsByEmailAndIdNot(user.getEmail(),
+                    user.getId());
+            loginExists = repository.existsByLoginAndIdNot(user.getLogin(),
                     user.getId());
         }
 
         if (emailExists){
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                     "Este e-mail já está sendo utilizado");
+        }else if(loginExists){
+            throw new ResponseStatusException(HttpStatus.CONFLICT,
+                    "Este login já está sendo utilizado");
         }
 
-        var userSaved = repository.save(user);
+        var userSaved = repository.save(MapperUtil.parseObject(user, User.class));
 
-        return userSaved;
+        return MapperUtil.parseObject(userSaved, UserLowDTO.class);
     }
 
     public List<UserDTO> findAll(){
