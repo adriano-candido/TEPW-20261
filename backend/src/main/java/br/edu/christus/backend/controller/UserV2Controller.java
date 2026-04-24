@@ -3,41 +3,22 @@ package br.edu.christus.backend.controller;
 import br.edu.christus.backend.domain.dto.UserDTO;
 import br.edu.christus.backend.domain.model.User;
 import br.edu.christus.backend.service.UserService;
+import br.edu.christus.backend.service.UserV2Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/user")
-public class UserController {
+@RequestMapping("/api/v2/user")
+public class UserV2Controller {
 
     @Autowired
-    private UserService service;
+    private UserV2Service service;
 
     @PostMapping
     public User create(@RequestBody User user){
         return service.save(user);
-    }
-
-    @PutMapping
-    public User update(@RequestBody User user){
-        return service.save(user);
-    }
-
-    @GetMapping
-    public List<UserDTO> findAll(){
-        return service.findAll();
-    }
-
-    @GetMapping("/{id}")
-    public UserDTO findById(@PathVariable(name = "id") Long id){
-        return service.findById(id);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
-        service.delete(id);
     }
 
 }

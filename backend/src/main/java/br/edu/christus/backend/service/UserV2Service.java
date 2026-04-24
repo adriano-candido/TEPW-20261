@@ -18,6 +18,11 @@ public class UserV2Service {
     private UserRepository repository;
 
     public User save(User user){
+        if(user.getName().length() < 10){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "O nome precisa ter ao menos 10 caracteres");
+        }
+
         if(user.getName().length() > 150){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     "Não é permitido nomes com mais de 150 caracteres");
@@ -40,27 +45,6 @@ public class UserV2Service {
         var userSaved = repository.save(user);
 
         return userSaved;
-    }
-
-    public List<UserDTO> findAll(){
-        var list = repository.findAll();
-        var listDTO = MapperUtil.parseListObjects(list, UserDTO.class);
-
-        return listDTO;
-    }
-
-    public UserDTO findById(Long id){
-        var user = repository.findById(id);
-        if(user.isEmpty()){
-            System.out.println("Usuário com o id informado não existe");
-            return null;
-        }
-        var dto = MapperUtil.parseObject(user.get(), UserDTO.class);
-        return dto;
-    }
-
-    public void delete(Long id){
-        repository.deleteById(id);
     }
 
 }
